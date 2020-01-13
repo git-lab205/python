@@ -1,0 +1,22 @@
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+import matplotlib.pyplot as plt
+import pandas as pd
+import pprint
+scope = ['https://spreadsheets.google.com/feeds',
+'https://www.googleapis.com/auth/drive']
+credentials = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
+gc = gspread.authorize(credentials)
+wks = gc.open("NAME_OF_SPEADSHEET").sheet1
+pp = pprint.PrettyPrinter()
+dataf = wks.get_all_records()
+data1 = pd.DataFrame(data=dataf)   ‘make friendly visualization
+
+print (data1.head(5))     ‘show the data, 5 rows
+
+#data1.set_index('Symbol', inplace=True)      ‘  
+#print(data1.loc['GAPB.MX'])
+
+# wks.update_acell('C1', "USER_PRO")
+# cell_list = wks.range('A1:G7')
+# print(cell_list)
